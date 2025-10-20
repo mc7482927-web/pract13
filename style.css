@@ -1,0 +1,152 @@
+/* style.css
+    Colores para la lista de los 12 signos (responsive) */
+
+/* Reset básico */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root{
+  --gap: 18px;
+  --card-radius: 12px;
+}
+
+/* Fondo y tipografía */
+body{
+  min-height: 100vh;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: linear-gradient(180deg, #071422 0%, #0f2936 60%);
+  color: #fff;
+  padding: 36px 20px;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* Título */
+h1{
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 22px;
+  letter-spacing: .6px;
+  background: linear-gradient(90deg,#ffd27f,#ffd6f0 40%, #9be7ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Lista como grid (forma de lista visual moderna) */
+ol{
+  list-style: none;                /* quitamos marcador por defecto */
+  counter-reset: zodiac;           /* contador para badges */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--gap);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* Cada elemento (tarjeta) */
+ol > li{
+  position: relative;
+  padding: 16px;
+  border-radius: var(--card-radius);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  transition: transform .18s ease, box-shadow .18s ease;
+  box-shadow: 0 8px 20px rgba(2,6,23,0.45);
+  overflow: hidden;
+  font-weight: 700;
+  text-transform: capitalize;
+  font-size: 1.05rem;
+}
+
+/* número/badge en cada tarjeta */
+ol > li::before{
+  counter-increment: zodiac;
+  content: counter(zodiac);
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: .9rem;
+  font-weight: 800;
+  color: rgba(255,255,255,0.95);
+  background: rgba(0,0,0,0.18);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* Imagen dentro de cada li */
+ol li img{
+  width: 100%;
+  max-width: 300px;   /* mantiene las imágenes tal como en el HTML pero las hace responsivas */
+  height: auto;
+  border-radius: 8px;
+  display: block;
+  box-shadow: 0 10px 28px rgba(2,6,23,0.45);
+  border: 3px solid rgba(255,255,255,0.04);
+}
+
+/* Hover / foco (interacción) */
+ol > li:hover,
+ol > li:focus-within{
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 18px 36px rgba(2,6,23,0.6);
+}
+
+/* Paleta: un color distinto por cada signo (12) */
+/* Texto oscuro sobre fondos muy claros */
+ol > li:nth-child(1){ background: linear-gradient(135deg,#ff6b6b,#ff8787); color: #fff; }   /* Aries */
+ol > li:nth-child(2){ background: linear-gradient(135deg,#ffd166,#ffefc2); color: #1b1b1b; } /* Tauro */
+ol > li:nth-child(3){ background: linear-gradient(135deg,#99e1d9,#6fd3c6); color: #063236; } /* Gemini */
+ol > li:nth-child(4){ background: linear-gradient(135deg,#80ced6,#3fb6c7); color: #042a2b; } /* Cancer */
+ol > li:nth-child(5){ background: linear-gradient(135deg,#ffb4a2,#ff8f6b); color: #2b0f06; } /* Leo */
+ol > li:nth-child(6){ background: linear-gradient(135deg,#b1e5f2,#7fd8f0); color: #032e37; } /* Virgo */
+ol > li:nth-child(7){ background: linear-gradient(135deg,#9b5de5,#7a3bd8); color: #fff; }   /* Libra */
+ol > li:nth-child(8){ background: linear-gradient(135deg,#6a4c93,#5a3a8b); color: #fff; }   /* Escorpio */
+ol > li:nth-child(9){ background: linear-gradient(135deg,#f72585,#ff6bcd); color: #fff; }   /* Sagitario */
+ol > li:nth-child(10){ background: linear-gradient(135deg,#4361ee,#3c82ff); color: #fff; }  /* Capricorn */
+ol > li:nth-child(11){ background: linear-gradient(135deg,#00c2a8,#3ddc97); color: #042e29; }/* Aquarius */
+ol > li:nth-child(12){ background: linear-gradient(135deg,#8ab6d6,#6da8d8); color: #05273b; }/* Pisces */
+
+/* Ajuste de badge según contraste: números oscuros sobre fondos muy claros */
+ol > li:nth-child(2)::before,
+ol > li:nth-child(3)::before,
+ol > li:nth-child(4)::before,
+ol > li:nth-child(5)::before,
+ol > li:nth-child(6)::before,
+ol > li:nth-child(11)::before,
+ol > li:nth-child(12)::before{
+  color: #111;
+  background: rgba(255,255,255,0.86);
+  box-shadow: 0 6px 14px rgba(2,6,23,0.12);
+}
+
+/* Texto (nombre del signo) se posiciona encima de la imagen:
+    el HTML pone el nombre como texto sin etiqueta; con display:block conseguimos que aparezca */
+ol > li{
+  justify-content: flex-start;
+  padding-top: 46px; /* espacio para el badge */
+}
+
+/* pequeño subtítulo si hubiera (por si se añade) */
+ol > li small{
+  display:block;
+  font-size: .85rem;
+  opacity: .9;
+  margin-top: -4px;
+  font-weight: 600;
+}
+
+/* Responsive: en móviles una sola columna */
+@media (max-width: 650px){
+  body { padding: 20px 12px; }
+  h1 { font-size: 1.6rem; }
+  ol { gap: 14px; }
+  ol > li { padding: 14px; }
+}
